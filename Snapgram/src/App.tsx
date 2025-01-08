@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
+import AuthLayout from './_auth/AuthLayout';
 import SignupForm from './_auth/form/SignupForm';
 import SigninForm from './_auth/form/SigninForm';
-import { Home } from './_root/pages';
 import RootLayout from './_root/RootLayout';
-import AuthLayout from './_auth/AuthLayout';
+import { Home } from './_root/pages';
+
 import './globals.css';
 
 
