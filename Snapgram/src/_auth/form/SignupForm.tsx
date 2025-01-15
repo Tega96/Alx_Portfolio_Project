@@ -14,9 +14,12 @@ import { Link } from "react-router-dom"
 import { Input } from "@/components/ui/input"
 import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
+// import { useToast } from "@/hooks/use-toast"
+
  
 
 const SignupForm = () => {
+  // const { toast } = useToast()
   const isLoading = false;
 
   // 1. Define your form.
@@ -32,9 +35,17 @@ const SignupForm = () => {
   
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof SignupValidation>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      console.log(values)
+    // async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    //   const newUser = await createUserAccount(values);
+
+    //   if(!newUser) {
+    //     return toast({
+    //       title: "Sign up failed",
+    //       description: "Please try again"
+    //     })
+    //   }
+    // }
+      console.log(values);
     }
 
 
