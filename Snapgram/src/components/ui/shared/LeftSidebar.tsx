@@ -1,9 +1,11 @@
 import { sidebarLinks } from '@/constants'
+import { INavLink } from '@/types'
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 
 const LeftSidebar = () => {
+  const { pathname } = useLocation;
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
@@ -16,7 +18,7 @@ const LeftSidebar = () => {
           />
         </Link>
 
-        <Link to="{`/profile/${user.id}`}" className="flex gap-3 items-center">
+        {/* <Link to="{`/profile/${user.id}`}" className="flex gap-3 items-center">
           <img 
             src{user.imageUrl} || "/assets/icons/profile-placeholder.svg"
             alt="profile"
@@ -31,7 +33,8 @@ const LeftSidebar = () => {
             <p className="small-regular text-light-3">
             @{user.username}
             </p>
-
+            
+            
             <ul className="flex flex-col gap-6">
               {sidebarLinks.map((link: INavLink) => {
                 return (
@@ -51,13 +54,40 @@ const LeftSidebar = () => {
                   </li>
                 )
               })}
-              
-              
-
             </ul>
 
           </div>
-        </Link>
+        </Link> */}
+
+        <ul className="flex flex-col gap-6">
+          {sidebarLinks.map((link: INavLink) => {
+            const isActive = pathname === link.route;
+            return (
+              <li key={link.label}
+              className={`leftsidebar-link group ${
+                isActive && 'bg-primary-500'}`}>
+                <NavLink
+                  to="{link.route}"
+                  className="flex gap-4 items-center p-4"
+                >
+                  <img 
+                    src={link.imgURL}
+                    alt={link.label}
+                    className={`group-hover:invert-white ${
+                      isActive && 'invert-white'}`}
+                  />
+
+                </NavLink>
+              </li>
+            )
+          })}
+        </ul>
+
+
+
+
+
+
       </div>
     </nav>
   )
