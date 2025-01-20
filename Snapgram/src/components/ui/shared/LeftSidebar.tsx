@@ -3,13 +3,16 @@ import { INavLink } from '@/types'
 import React from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button";
+import { useUserContext, INITIAL_USER } from '@/context/AuthContext';
+import { Loader } from 'lucide-react';
+
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation;
   const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
 
-  // const { mutate: signOut } useSignOutAccount();
+  const { mutate: signOut } useSignOutAccount();
 
   const handleSignOut = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
