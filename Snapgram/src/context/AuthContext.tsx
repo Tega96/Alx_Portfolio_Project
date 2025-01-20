@@ -52,9 +52,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 					bio: currentAccount.bio,
 				});
 				setIsAuthenticated(true);
+
+				return true;
 			}
+
+			return false;
+		} catch (error) {
+			console.error(error);
+			return false;
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+
+	useEffect(() => {
+		const cookieFallback = localStorage.getItem("cookieFallback");
+		if (
+			cookieFallback === "[]" ||
+			cookieFallback === null ||
+			cookieFallback === undefined
+		) {
+			Navigate("/sign-in");
+		}
+
+		checkAuthUser();
+	}, []);
+
+	const value = {
+		user,
+		isAuthenticated,
+		isLoading,
+		setUser,
+		setIsAuthenticated,
+		checkAuthUser,
+	};
+
+	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 
