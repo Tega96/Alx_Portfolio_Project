@@ -12,13 +12,13 @@ const LeftSidebar = () => {
   const { pathname } = useLocation;
   const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
 
-  const { mutate: signOut } useSignOutAccount();
+  // const { mutate: signOut } useSignOutAccount();
 
   const handleSignOut = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    signOut();
+    // signOut();
     setIsAuthenticated(false);
     setUser(INITIAL_USER);
     navigate("/sign-in");
@@ -36,14 +36,14 @@ const LeftSidebar = () => {
           />
         </Link>
 
-        {isLoading || !user.email ? (
+         {isLoading || !user.email ? (
           <div className="h-14">
             <Loader />
           </div>
         ) : (
           <Link to="{`/profile/${user.id}`}" className="flex gap-3 items-center">
             <img 
-              src{user.imageUrl || "/assets/icons/profile-placeholder.svg"}
+              src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
               alt="profile"
               className="h-14 w-14 rounded-full"
             />
@@ -84,7 +84,7 @@ const LeftSidebar = () => {
         </ul>
       </div>
 
-      <Button
+       <Button
         variant="ghost"
         className="shad-button_ghost"
         onClick={ (e) => handleSignOut(e)}>
@@ -93,6 +93,6 @@ const LeftSidebar = () => {
       </Button>
     </nav>
   );
-}
+};
 
-export default LeftSidebar
+export default LeftSidebar;

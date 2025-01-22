@@ -1,7 +1,7 @@
 import { IUser } from "@/types";
 import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { set } from "zod";
+
 
 export const INITIAL_USER = {
 	id: "",
@@ -91,4 +91,4 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 
-export const userUserContext = () => useContext(AuthContext);
+export const useUserContext = () => useContext(AuthContext);
