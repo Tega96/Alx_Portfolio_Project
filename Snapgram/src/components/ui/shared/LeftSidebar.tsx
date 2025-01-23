@@ -63,10 +63,10 @@ const LeftSidebar = () => {
             return (
               <li 
                 key={link.label}
-                className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"}`}>
+                className={`${
+                  isActive && "bg-primary-500 rounded-[10px]"}, flex-center flex-col gap-1 p-2 transition`}>
                 <NavLink
-                  to="{link.route}"
+                  to={link.route}
                   className="flex gap-4 items-center p-4"
                 >
                   <img 

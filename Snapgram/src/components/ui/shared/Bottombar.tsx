@@ -6,29 +6,26 @@ const Bottombar = () => {
   return (
     <section className="bottom-bar">
       {bottombarLinks.map((link) => {
-            const isActive = pathname === link.route;
+        const isActive = pathname === link.route;
 
-            return (
-              <li 
-                key={link.label}
-                className={`bottombar-link group ${
-                  isActive && "bg-primary-500"}`}>
-                <Link
-                  to="{link.route}"
-                  className="flex gap-4 items-center p-4"
-                >
-                  <img 
-                    src={link.imgURL}
-                    alt={link.label}
-                    className={`group-hover:invert-white ${
-                      isActive && 'invert-white'
-                    }`}
-                  />
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
+        return (
+          <Link
+            to={link.route}
+            key={link.label}
+            className={`bottombar-link group ${
+            isActive && "bg-primary-500"}`}
+          >
+            <img 
+              src={link.imgURL}
+              alt={link.label}
+              className={`group-hover:invert-white ${
+                isActive && 'invert-white'
+              }`}
+            />
+            {link.label}
+          </Link>
+        );
+      })}
     </section>
   )
 }
