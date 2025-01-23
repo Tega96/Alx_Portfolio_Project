@@ -27,7 +27,7 @@ type PostFormProps = {
 const PostForm = ({ post, action }: PostFormProps) => {
 	const navigate = useNavigate();
 	const { toast }	= useToast();
-	const { user } = useUserContext();
+	const { user } = useUserContext(); // This produce the user id from the database
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -38,9 +38,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
     },
   })
 
-
-	// 	// Query here
-
+	// function onSubmit(values: z.infer<typeof PostValidation>) {
+	// 	console.log(values)
+	// }
 
 
   // 2. Handler.
@@ -51,7 +51,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
 				...value,
 				postId: post.$id,
 				imageId: post.imageId,
-				imaageUrl: post.imageUrl,
+				imageUrl: post.imageUrl,
 			});
 
 			if (!updatedPost) {
@@ -79,91 +79,91 @@ const PostForm = ({ post, action }: PostFormProps) => {
 
   return (
     <Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} 
-			className="flex flex-col gap-9 w-full max-w-5xl">
-			<FormField
-				control={form.control}
-				name="caption"
-				render={({ field }) => (
-				<FormItem>
-						<FormLabel className="shad-form label">Caption</FormLabel>
-						<FormControl>
-							<Textarea className="shad-textarea custom-scrollbar" {...field} />
-						</FormControl>
-						<FormMessage className="shad-form message" />
-				</FormItem>
-				)}
-			/>
-
-			<FormField
-				control={form.control}
-				name="file"
-				render={({ field }) => (
-				<FormItem>
-					<FormLabel className="shad-form label">Add Photos</FormLabel>
-					<FormControl>
-						<FileUploader 
-							fieldChange={field.onChange}
-							mediaUrl={post?.imageUrl}
-						 />
-					</FormControl>
-					<FormMessage className="shad-form message" />
-				</FormItem>
-				)}
-			/>
-
-			<FormField 
-				control={form.control}
-				name="location"
-				render={({ field }) => (
+			<form onSubmit={form.handleSubmit(handleSubmit)} 
+				className="flex flex-col gap-9 w-full max-w-5xl">
+				<FormField
+					control={form.control}
+					name="caption"
+					render={({ field }) => (
 					<FormItem>
-						<FormLabel className="shad-form_label">Add Location</FormLabel>
-						<FormControl>
-							<Input type="text" className="shad-input" {...field} />
-						</FormControl>
-						<FormMessage className="shad-form_message" />
+							<FormLabel className="shad-form label">Caption</FormLabel>
+							<FormControl>
+								<Textarea className="shad-textarea custom-scrollbar" {...field} />
+							</FormControl>
+							<FormMessage className="shad-form message" />
 					</FormItem>
-				)}
-			/>
+					)}
+				/>
 
-			<FormField 
-				control={form.control}
-				name="tags"
-				render={({ field }) => (
+				<FormField
+					control={form.control}
+					name="file"
+					render={({ field }) => (
 					<FormItem>
-						<FormLabel className="shad-form_label">
-							Add Tags (separated by comma " , ")
-						</FormLabel>
+						<FormLabel className="shad-form label">Add Photos</FormLabel>
 						<FormControl>
-							<Input
-								placeholder="Art, Expression, Learn"
-								type="text"
-								className="shad-input"
-								{...field}
+							<FileUploader 
+								fieldChange={field.onChange}
+								mediaUrl={post?.imageUrl}
 							/>
 						</FormControl>
-						<FormMessage className="shad-form_message" />
+						<FormMessage className="shad-form message" />
 					</FormItem>
-				)}
-			/>
+					)}
+				/>
 
-			<div className="flex gap-4 items-center justify-end">
-				<Button
-					type="button"
-					className="shad-button_dark_4"
-					onClick={() => Navigate(-1)}>
-					Cancel
-				</Button>
-				<Button
-					type="submit"
-					className="shad-button_primary_whitespace-nowrap"
-					disable={isLoadingCreate || isLoadingUpdate}>
-					{(isLoadingCreate || isLoadingUpdate) && <Loader />}	
-					{action} Post
-				</Button>
-			</div>
-		</form>
-	</Form>
+				<FormField 
+					control={form.control}
+					name="location"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel className="shad-form_label">Add Location</FormLabel>
+							<FormControl>
+								<Input type="text" className="shad-input" {...field} />
+							</FormControl>
+							<FormMessage className="shad-form_message" />
+						</FormItem>
+					)}
+				/>
+
+				<FormField 
+					control={form.control}
+					name="tags"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel className="shad-form_label">
+								Add Tags (separated by comma " , ")
+							</FormLabel>
+							<FormControl>
+								<Input
+									placeholder="Art, Expression, Learn"
+									type="text"
+									className="shad-input"
+									{...field}
+								/>
+							</FormControl>
+							<FormMessage className="shad-form_message" />
+						</FormItem>
+					)}
+				/>
+
+				<div className="flex gap-4 items-center justify-end">
+					<Button
+						type="button"
+						className="shad-button_dark_4"
+						onClick={() => Navigate(-1)}>
+						Cancel
+					</Button>
+					{/* <Button
+						type="submit"
+						className="shad-button_primary_whitespace-nowrap"
+						disable={isLoadingCreate || isLoadingUpdate}>
+						{(isLoadingCreate || isLoadingUpdate) && <Loader />}	
+						{action} Post
+					</Button> */}
+				</div>
+			</form>
+		</Form>
   );
 };
 
