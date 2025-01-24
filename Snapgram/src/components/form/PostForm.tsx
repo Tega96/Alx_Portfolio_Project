@@ -59,7 +59,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
 					title: `${action} post failed. Please try again.`,
 				});
 			}
-			return navigate(`/posts/${postMessage.$id}`);
+			return navigate(`/posts/${postMessage.$id}`); // define a postMessage to say something like "Post update fail, please try again"
 		}
 
 		// ACTION = CREATE
