@@ -1,3 +1,4 @@
+import PostForm from "@/components/form/PostForm";
 import { Loader } from "lucide-react";
 import { useParams } from "react-router-dom";
 
