@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import GridPostList from "@/components/ui/shared/GridPostList";
 import PostStats from "@/components/ui/shared/PostStats";
 import { useUserContext } from "@/context/AuthContext";
 import { multiFormatDateString } from "@/lib/utils";
@@ -10,7 +11,7 @@ const PostDetails = () => {
   const { id } = useParams();
   const { user } = useUserContext();
 
-  const {data: post, isLoading, isError} = useGetPost(id);
+  const { data: post, isLoading } = useGetPost(id);
   const { data: userPOsts, isLoading: isUserPostLoading } = useGetUserPosts(
     post?.creator.$id
   );

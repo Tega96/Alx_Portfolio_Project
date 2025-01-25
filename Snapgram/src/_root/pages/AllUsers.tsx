@@ -1,6 +1,7 @@
 import UserCard from "@/components/ui/shared/UserCard";
 import { useToast } from "@/hooks/use-toast";
-import React from "react";
+import { Loader } from "lucide-react";
+
 
 const AllUsers = () => {
   const { toast } = useToast();
