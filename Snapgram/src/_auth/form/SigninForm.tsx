@@ -1,10 +1,10 @@
 import { useUserContext } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { Button } from "@/components/ui/button";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -12,12 +12,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Link } from "react-router-dom"
-import { Input } from "@/components/ui/input"
-import { Loader } from "lucide-react"
+} from "@/components/ui/form";
+import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Loader } from "lucide-react";
 import { SigninValidation } from '@/lib/validation';
-
 
 
 const SigninForm = () => {
@@ -27,6 +26,15 @@ const SigninForm = () => {
   
   // Query
   
+  // Define form schema
+  const form = useForm<z.infer<typeof SigninValidation>>({
+    resolver: zodResolver(SigninValidation),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   // Handler
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
     const session = await signInAccount(user);
@@ -93,7 +101,7 @@ const SigninForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isLoading || isUserLoading ? (
+            {isUserLoading || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>

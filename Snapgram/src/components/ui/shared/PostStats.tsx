@@ -8,9 +8,9 @@ type PostStatsProps = {
   userId: string;
 };
 
-const PostStats = () => {
+const PostStats = ({ post, userId }: PostStatsProps) => {
   const location = useLocation();
-	const likesList = postlikes.map((user: Models.Document) => user.$id);
+	const likesList = post.likes.map((user: Models.Document) => user.$id);
 
 	const [likes, setLikes] = useState<string[]>(likesList);
 	const [isSaved, setIsSaved] =useState(false);
@@ -29,22 +29,22 @@ const PostStats = () => {
 		setIsSaved(!savedPostRecord);
 	}, [currentUser]);
 
-	const handleLIkePost = (
-		e: React.MouseEvent<HTMLImageElement, MoustEvent>
-		=> {
-		e.stopPropagation();
+	// const handleLIkePost = (
+	// 	e: React.MouseEvent<HTMLImageElement, MoustEvent>
+	// 	=> {
+	// 	e.stopPropagation();
 
-		let likesArray = [...likes];
+	// 	let likesArray = [...likes];
 
-		if (likesArray.includes(usedId)) {
-			likesArray = likesArray.filter((Id) => Id !== userId);
-		} else {
-			likesArray.push(userId);
-		}
+	// 	if (likesArray.includes(usedId)) {
+	// 		likesArray = likesArray.filter((Id) => Id !== userId);
+	// 	} else {
+	// 		likesArray.push(userId);
+	// 	}
 
-		setLikes(likesArray);
-		likePost({ postId: postMessage.$id, likesArray });
-	);
+	// 	setLikes(likesArray);
+	// 	likePost({ postId: postMessage.$id, likesArray });
+	// );
 
 	const handleSavePost = (
 		e: React.MouseEvent<HTMLImageElement, MouseEvent>
@@ -56,7 +56,7 @@ const PostStats = () => {
 			return deleteSavedPost(savePostRecord.$id);
 		}
 
-		savePost({ userId: UserRoundIcon, postId: post.$id });
+		savePost({ userId: userId, postId: post.$id });
 		setIsSaved(true);
 	};
 
@@ -65,33 +65,33 @@ const PostStats = () => {
 		: "";
 
 		
-  return (
-		<div 
+	return (
+		<div
 			className={`flex justify-between items-center z-20 ${containerStyles}`}>
 			<div className="flex gap-2 mr-5">
-				<img 
-					src={
-						'${checkIsLiked={}(likes, userId)
+				<img
+					src={`${
+						checkIsLiked(likes, userId)
 							? "/assets/icons/liked.svg"
-							: "/asstts/icons/like.svg"	
-					}'}
+							: "/assets/icons/like.svg"
+					}`}
 					alt="like"
 					width={20}
 					height={20}
 					onClick={(e) => handleLikePost(e)}
 					className="cursor-pointer"
 				/>
-				<p className="small-medium lg:base-medium">likes.length</p>
+				<p className="small-medium lg:base-medium">{likes.length}</p>
 			</div>
 
 			<div className="flex gap-2">
-				<img 
+				<img
 					src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
 					alt="share"
 					width={20}
 					height={20}
 					className="cursor-pointer"
-					onClick=(e) => handleSavePost(e)}
+					onClick={(e) => handleSavePost(e)}
 				/>
 			</div>
 		</div>
