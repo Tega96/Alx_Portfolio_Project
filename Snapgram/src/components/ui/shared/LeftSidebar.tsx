@@ -1,7 +1,7 @@
-import { sidebarLinks } from '@/constants'
-import { INavLink } from '@/types'
-import React from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { sidebarLinks } from '@/constants';
+import { INavLink } from '@/types';
+import React from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { useUserContext, INITIAL_USER } from '@/context/AuthContext';
 import { Loader } from 'lucide-react';
@@ -36,7 +36,7 @@ const LeftSidebar = () => {
           />
         </Link>
 
-         {isLoading || !user.email ? (
+        {isLoading || !user.email ? (
           <div className="h-14">
             <Loader />
           </div>
@@ -55,7 +55,6 @@ const LeftSidebar = () => {
           </Link>
         )}
             
-            
         <ul className="flex flex-col gap-6">
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;
@@ -63,7 +62,7 @@ const LeftSidebar = () => {
             return (
               <li 
                 key={link.label}
-                className={`${
+                className={`leftsidebar-link group ${
                   isActive && "bg-primary-500 rounded-[10px]"}, flex-center flex-col gap-1 p-2 transition`}>
                 <NavLink
                   to={link.route}
