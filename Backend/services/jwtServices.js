@@ -7,7 +7,7 @@ const generateToken = (payload) => {
   if (payload.role === 'admin') {
     expiresIn = '1h';
   } else {
-    expiresIn = '3d';
+    expiresIn = '1d';
   }
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn }); // Sign with secret and expiration time
 };
