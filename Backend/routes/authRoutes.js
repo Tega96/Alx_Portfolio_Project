@@ -1,18 +1,29 @@
 const express = require('express');
-const { signup, login, logout } = require('../controllers/authController');
+const { signup, verifyEmail, resendVerificationEmail, login, logout } = require('../controllers/authController');
+const { requestPasswordReset, resetPassword } = require('../controllers/passwordResetController');
 const { authenticate, authorize } = require('../middleware/authenticate');
-
 const router = express.Router();
 
 // Public routes (User/ Admin signup and login)
 router.post('/signup', signup);
 router.post('/login', login);
 
+// Verify email route
+router.get('/verify-email/:token', verifyEmail);
+
+// Resend verification email route
+router.post('/resend-verification-email', resendVerificationEmail);
+
+// Request password reset route
+router.post('/request-password-reset', requestPasswordReset);
+
+// Reset password route
+router.post('/reset-password', resetPassword);
+
 // Protected route
 router.get('/admin', authenticate, authorize('admin'), (req, res) => {
   res.status(200).json({ message: 'Welcome Admin!' });
 });
-
 router.get('/user', authenticate, (req, res) => {
   res.status(200).json({ message: 'Welcome User!', user: req.user });
 });
