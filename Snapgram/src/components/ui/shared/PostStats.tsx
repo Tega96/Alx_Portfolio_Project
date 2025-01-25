@@ -1,3 +1,4 @@
+import { checkIsLiked } from "@/lib/utils";
 import { UserRoundIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -63,13 +64,14 @@ const PostStats = () => {
 		? "w-full"
 		: "";
 
+		
   return (
 		<div 
 			className={`flex justify-between items-center z-20 ${containerStyles}`}>
 			<div className="flex gap-2 mr-5">
 				<img 
-					src={'${
-						checkIsLiked(likes, userId)
+					src={
+						'${checkIsLiked={}(likes, userId)
 							? "/assets/icons/liked.svg"
 							: "/asstts/icons/like.svg"	
 					}'}
