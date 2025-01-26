@@ -6,7 +6,7 @@ const { sendEmail } = require('../services/emailServices');
 const { generateToken } = require('../services/jwtServices');
 
 // Request password reset controller
-const requestPasswordReset = async (req, res) => {
+const forgetPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -79,4 +79,4 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { requestPasswordReset, resetPassword };
+module.exports = { forgetPassword, resetPassword };

@@ -79,10 +79,8 @@ userSchema.virtual('followingCount').get(function () {
 userSchema.set('toJSON', { virtuals: true });
 userSchema.set('toObject', { virtuals: true });
 
-
-  // Middleware to hash the password before saving the user document.
-  // This ensures the password is stored securely in the database.
-
+// Middleware to hash the password before saving the user document.
+// This ensures the password is stored securely in the database.
 userSchema.pre('save', async function (next) {
   // If the password hasn't been modified, skip hashing
   if (!this.isModified('password')) return next();
