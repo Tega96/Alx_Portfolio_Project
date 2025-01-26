@@ -15,53 +15,73 @@ const postSchema = new mongoose.Schema({
     maxlength: 500,
   },
   // Array of media URLs (images/videos)
-  media: [
-    {
-      type: String, // Each media item is stored as a URL
-      enum: ['image', 'video'],
-      required: true, // Ensure each media item has a value
-    },
-  ],
+  media: {
+    type: [
+      {
+        url: {
+          type: String,
+          required: true,
+          validate: {
+            validator: (value) => validator.isURL(value),
+            message: 'Invalid URL',
+          },
+        },
+        type: {
+          type: String,
+          enum: ['image', 'video'],
+          required: true,
+        },
+      },
+    ],
+    default: [],
+  },
+
   // Array of users who liked the post
-  likes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  likes: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    default: [],
+  },
+
   // Array of comments associated with the post
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId, // ObjectId references a Comment document
-      ref: 'Comment', // Relationship with the Comment model
-    },
-  ]}, { timestamps: true }
+  comments: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+      },
+    ],
+    default: [],
+  }
+}, { timestamps: true }
 );
 
 // Virtual field to calculate the number of likes
 postSchema.virtual('likeCount').get(function () {
-  return this.likes.length; // Returns the total number of likes
+  return this.likes.length;
 });
 
 // Virtual field to calculate the number of comments
 postSchema.virtual('commentCount').get(function () {
-  return this.comments.length; // Returns the total number of comments
+  return this.comments.length;
 });
 
 // Virtual field to calculate the number of media items
 postSchema.virtual('mediaCount').get(function () {
-  return this.media.length; // Returns the total number of media items
+  return this.media.length;
 });
 
-// Enable virtual fields when the model is converted to JSON or plain objects
+// Enable virtual fields
 postSchema.set('toJSON', { virtuals: true });
 postSchema.set('toObject', { virtuals: true });
 
-// Middleware to prevent the deletion of a post without first clearing references.
+// Middleware to delete associated comments when a post is deleted
 postSchema.pre('remove', async function (next) {
   try {
-    // Clear associated likes and comments
-    await mongoose.model('Like').deleteMany({ postId: this._id });
     await mongoose.model('Comment').deleteMany({ postId: this._id });
     next();
   } catch (err) {
@@ -69,11 +89,11 @@ postSchema.pre('remove', async function (next) {
   }
 });
 
-// Middleware to log post creation "runs before this document"
+// Middleware to log post creation
 postSchema.pre('save', async function (next) {
   try {
     console.log(`A new post is being created by user: ${this.userId}`);
-    next();  
+    next();
   } catch (err) {
     next(err);
   }

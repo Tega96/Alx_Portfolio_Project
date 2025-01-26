@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 // Define the comment Schema
 const commentSchema = new mongoose.Schema({
-  
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -15,26 +14,25 @@ const commentSchema = new mongoose.Schema({
     required: true,
   },
   content: {
-    type: String, 
+    type: String,
     required: true,
     minlength: 1,
     maxlength: 500,
+    trim: true,
   },
-  likes: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  likesCount: {
-    type: Number,
-    default: 0
+  likes: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    }],
+    default: [],
   },
-  replies: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
-  repliesCount: {
-    type: Number,
-    default: 0
+  replies: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
+    }],
+    default: [],
   },
   parentComment: {
     type: mongoose.Schema.Types.ObjectId,
@@ -51,17 +49,29 @@ const commentSchema = new mongoose.Schema({
   }
 });
 
-// update counts pre-save
-commentSchema.pre('save', function(next) {
-    if (this.isModified('likes')) {
-      this.likesCount = this.likes.length;
-    }
-    if (this.isModified('replies')) {
-      this.repliesCount = this.replies.length;
-    }
-    this.updatedAt = Date.now();
-    next();
+// Virtual fields
+commentSchema.virtual('likesCount').get(function () {
+  return this.likes.length;
 });
+
+commentSchema.virtual('repliesCount').get(function () {
+  return this.replies.length;
+});
+
+// Enable virtual fields
+commentSchema.set('toJSON', { virtuals: true });
+commentSchema.set('toObject', { virtuals: true });
+
+// Middleware to update `updatedAt`
+commentSchema.pre('save', function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+// Indexes
+commentSchema.index({ userId: 1 });
+commentSchema.index({ postId: 1 });
+commentSchema.index({ createdAt: -1 });
 
 // Create the Comment model from the schema
 const Comment = mongoose.model("Comment", commentSchema);
