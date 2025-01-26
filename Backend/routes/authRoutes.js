@@ -1,6 +1,6 @@
 const express = require('express');
 const { signup, verifyEmail, resendVerificationEmail, login, logout } = require('../controllers/authController');
-const { requestPasswordReset, resetPassword } = require('../controllers/passwordResetController');
+const { forgetPassword, resetPassword } = require('../controllers/passwordResetController');
 const { authenticate, authorize } = require('../middleware/authenticate');
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.get('/verify-email/:token', verifyEmail);
 router.post('/resend-verification-email', resendVerificationEmail);
 
 // Request password reset route
-router.post('/request-password-reset', requestPasswordReset);
+router.post('/request-password-reset', forgetPassword);
 
 // Reset password route
 router.post('/reset-password', resetPassword);

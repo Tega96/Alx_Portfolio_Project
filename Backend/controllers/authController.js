@@ -13,11 +13,13 @@ const signup = async (req, res) => {
         if (role && !['user', 'admin'].includes(role)) {
             return res.status(400).json({ message: 'Invalid role specified.' });
         }
+
         // Check for duplicate email or username
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: 'Email already in use.' });
+            return res.status(400).json({ message: 'Email already exists.' });
         }
+
         // Create a new user
         const user = new User({ username, email, password, role: role || 'user' }); // Default to 'user' if no role is provided
         await user.save();
@@ -152,7 +154,7 @@ const login = async (req, res) => {
             tokenExpiry = '1d'; // 1 day tokens by default
         }
         
-        // Generate JWT
+        // Generate token for a session
         const token = generateToken({ id: user._id, email: user.email, role: user.role, }, tokenExpiry);
         res.status(200).json({
             message: 'Login successful!',
