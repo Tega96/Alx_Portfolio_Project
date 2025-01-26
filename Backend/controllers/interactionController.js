@@ -162,4 +162,4 @@ const getCommentsByPostId = async (req, res, next) => {
   }
 };
 
-module.exports = { likePost, toggleCommentLike, addComment, updateComment, deleteComment, getCommentsByPostId };
+module.exports = { likePost, toggleCommentLike, addComment, updateComment, deleteComment, getCommentsByPostId, };

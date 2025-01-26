@@ -131,4 +131,4 @@ const getFeedPosts = async (req, res) => {
   }
 };
 
-module.exports = { createPost, editPost, getPostById, deletePost, getFeedPosts };
+module.exports = { createPost, editPost, getPostById, deletePost, getFeedPosts, };
