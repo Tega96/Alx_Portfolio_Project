@@ -6,7 +6,6 @@ const AuthLayout = () => {
 
   return (
     <>
-      // Checks for available user account
       {isAuthenticated ? (
         <Navigate to="/" />
     ): (
