@@ -5,11 +5,13 @@ import ProfileUploader from "@/components/ui/shared/ProfileUploader";
 import { Textarea } from "@/components/ui/textarea";
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { useGetUserById, useUpdateUser } from "@/lib/react-query/queries";
 import { ProfileValidation } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Form, useNavigate, useParams } from "react-router-dom";
+import { z } from "zod";
 
 const UpdateProfile = () => {
   const { toast } = useToast();

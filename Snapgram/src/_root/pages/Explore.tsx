@@ -1,7 +1,10 @@
 import { Input } from "@/components/ui/input";
 import GridPostList from "@/components/ui/shared/GridPostList";
+import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useDebounce } from "@custom-react-hooks/use-debounce";
 
 
 
@@ -27,7 +30,7 @@ const Explore = () => {
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
 
   const [searchValue, setSearchValue] = useState("");
-  const debouncedSearch = useDebounce(searchValue, 500);
+  const debouncedSearch = useDebounce(searchValue, 500); // delay execution by 0.5 seconds
   const { data: searchedPosts, isFetching: isSearchFetching } = useSearchPosts(debouncedSearch);
 
   useEffect(() => {

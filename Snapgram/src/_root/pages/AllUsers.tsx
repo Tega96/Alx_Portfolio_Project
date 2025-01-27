@@ -1,12 +1,13 @@
 import UserCard from "@/components/ui/shared/UserCard";
 import { useToast } from "@/hooks/use-toast";
+import { useGetUsers } from "@/lib/react-query/queries";
 import { Loader } from "lucide-react";
 
 
 const AllUsers = () => {
   const { toast } = useToast();
 
-  const { data: creators, isLoading, isError} = useGetUsers();
+  const { data: creators, isLoading, isError: isErrorCreators} = useGetUsers();
 
   if (isErrorCreators) {
     toast({title: "Something went wrong." });

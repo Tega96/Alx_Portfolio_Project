@@ -1,12 +1,12 @@
 import { Outlet, Navigate } from 'react-router-dom';
 
-
-
+// To wrap the sign-in and sign-up forms
 const AuthLayout = () => {
     const isAuthenticated = false;
 
   return (
     <>
+      // Checks for available user account
       {isAuthenticated ? (
         <Navigate to="/" />
     ): (
@@ -21,11 +21,9 @@ const AuthLayout = () => {
             className="hidden xl:block h-screen w-1/2 object-cover bg-no-repeat" 
             />
         </>
-
-
       )}
     </>
-  )
-}
+  );
+};
 
 export default AuthLayout

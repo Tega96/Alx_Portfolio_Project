@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queries"
 
  
 
@@ -31,11 +32,14 @@ const SignupForm = () => {
       email: "",
       password: "",
     },
-  })
+  });
+
+  // Queries
+  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = useCreateUserAccount();
+  const { mutateAsync: signInAccount, isLoading: isSigningInUser } = useSignInAccount();
   
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    async function onSubmit(values: z.infer<typeof SignupValidation>) {
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
     const newUser = await createUserAccount(values);
 
     if(!newUser) {
@@ -44,7 +48,7 @@ const SignupForm = () => {
         description: "Please try again"
       })
     }
-  }
+  
     console.log(values);
   }
 
