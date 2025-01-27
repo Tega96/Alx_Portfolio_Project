@@ -1,34 +1,26 @@
-import { useUserContext } from '@/context/AuthContext';
-import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Link } from "react-router-dom";
-import { Input } from "@/components/ui/input";
-import { Loader } from "lucide-react";
-import { SigninValidation } from '@/lib/validation';
-import { useSignInAccount } from '@/lib/react-query/queries';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
 
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+
+import { SigninValidation } from "@/lib/validation";
+import { useSignInAccount } from "@/lib/react-query/queries";
+import { useUserContext } from "@/context/AuthContext";
+import { Loader } from "lucide-react";
 
 const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-  
+
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount
-  
-  // Define form schema
+  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
     defaultValues: {
@@ -37,13 +29,12 @@ const SigninForm = () => {
     },
   });
 
-  // Handler
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
     const session = await signInAccount(user);
 
     if (!session) {
-      toast({title: "Login failed. Please try again."});
-
+      toast({ title: "Login failed. Please try again." });
+      
       return;
     }
 
@@ -54,8 +45,8 @@ const SigninForm = () => {
 
       navigate("/");
     } else {
-      toast({title: "Login failed. Please try again.", });
-
+      toast({ title: "Login failed. Please try again.", });
+      
       return;
     }
   };
@@ -103,7 +94,7 @@ const SigninForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isUserLoading || isUserLoading ? (
+            {isLoading || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>

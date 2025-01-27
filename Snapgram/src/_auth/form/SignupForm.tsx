@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Link, useNavigate } from "react-router-dom"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
 import { useUserContext } from "@/context/AuthContext"
@@ -158,7 +158,11 @@ const SignupForm = () => {
         </Button>
         <p className="text-small-regular text-light-2 text-center mt-2">
           Already have an account, 
-          <Link to="/sign-in" className="text-primary-500" text-small-semibold ml-1> Log in</Link>
+          <Link 
+            to="/sign-in" 
+            className="text-primary-500 text-small-semibold ml-1">
+            Log in
+          </Link>
         </p>
       </form>
       </div>

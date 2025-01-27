@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import GridPostList from "@/components/ui/shared/GridPostList";
 import PostStats from "@/components/ui/shared/PostStats";
 import { useUserContext } from "@/context/AuthContext";
+import { useDeletePost, useGetPostById, useGetUserPosts } from "@/lib/react-query/queries";
 import { multiFormatDateString } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -11,8 +12,8 @@ const PostDetails = () => {
   const { id } = useParams();
   const { user } = useUserContext();
 
-  const { data: post, isLoading } = useGetPost(id);
-  const { data: userPOsts, isLoading: isUserPostLoading } = useGetUserPosts(
+  const { data: post, isLoading } = useGetPostById(id);
+  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
     post?.creator.$id
   );
 
@@ -92,7 +93,7 @@ const PostDetails = () => {
                 </Link>
 
                 <Button
-                  onclick={handleDeletePost}
+                  onClick={handleDeletePost}
                   variant="ghost"
                   className={`post_details-delete_btn ${
                     user.id !== post?.creator.$id && "hidden"
