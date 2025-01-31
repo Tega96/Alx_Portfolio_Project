@@ -77,9 +77,13 @@ This is a full-stack social media application similar to Instagram, named Snapgr
 - React.js -> Frontend UI framework
 - React Router -> For handling navigation
 - Redux / Context API -> For state management
+- Appwrite -> BaaS to handle Database Storage
 - Axios / Fetch API	-> Making HTTP requests to the backend
 - Tailwind CSS -> Styling
-- OAuth Libraries	-> Handling Google/Facebook login on frontend
+- React Query -> Simplifies data fetching and mutation, and enables caching and infinite scroll
+- TypeScript -> To ensure variables are properly defined.
+- Shadcn -> For seamless interactive user interface.
+
 
 ## Installation & Setups
 Initialize the server:
