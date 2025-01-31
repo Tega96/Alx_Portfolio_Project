@@ -2,14 +2,14 @@ This is a full-stack social media application similar to Instagram, named Snapgr
 
 ## Project Structure
 ### Backend
-config -> Configuration files (e.g., database)
-middleware -> Custom middleware (auth, error handling, validation, etc.)
-models -> Mongoose models (User, Post, Like, Comment, etc.)
-controllers -> Handles business logic for routes
-routes -> Defines API endpoints (Auth, User, Post, etc.)
-services -> Utility functions (JWT, email service, OAuth, etc.)
-index.js -> Entry point of the backend server
-package.json -> Node.js dependencies and scripts
+- config -> Configuration files (e.g., database)
+- middleware -> Custom middleware (auth, error handling, validation, etc.)
+- models -> Mongoose models (User, Post, Like, Comment, etc.)
+- controllers -> Handles business logic for routes
+- routes -> Defines API endpoints (Auth, User, Post, etc.)
+- services -> Utility functions (JWT, email service, OAuth, etc.)
+- index.js -> Entry point of the backend server
+- package.json -> Node.js dependencies and scripts
 
 ### frontend
 #### public
@@ -110,8 +110,8 @@ The deployment process is done using Vercel, which is used for full-stack hostin
 - Mobile app version using React Native
 
 ## Contributors
-Backend Developer: Abdelhady Mohammed, abdelhadymohammed1763@gmail.com
-Frontend Developer: Otega Otite, 
+- Backend Developer: Abdelhady Mohammed, abdelhadymohammed1763@gmail.com
+- Frontend Developer: Otega Otite, 
 
 ## License
 This project is licensed under the MIT License.
